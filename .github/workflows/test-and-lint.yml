@@ -21,6 +21,8 @@ jobs:
       - name: Run pytest
         run: |
           pip install httpx starlette uvicorn pyftpdlib pyyaml martepy
+          mkdir /opt/martecompiler
+          cp settings.yml /opt/martecompiler/settings.yml
           pytest --cov=marte-compiler --cov-report=term --cov-report=html:cov_html --cov-fail-under=90 --junit-xml=test_report.xml
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4.4.3
