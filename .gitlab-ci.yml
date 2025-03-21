@@ -1,0 +1,65 @@
+stages:
+  - test
+  - quality
+  - documentation
+  - deploy
+
+default:
+  tags:
+    - lower-privacy
+    - docker
+    - ubuntu
+    - meta
+
+docs:
+  stage: documentation
+  image: sudilav1/xmarte:main
+  script:
+    - cd docs
+    - make html
+  artifacts:
+    paths:
+      - docs/build/html
+    expire_in: 1 week
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public/
+    - rm -rf public/*
+    - cp -a docs/build/html/* public/
+  artifacts:
+    paths:
+      - public/
+    expire_in: 1 year
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main"'
+      when: always
+
+lint:
+  stage: quality
+  image: sudilav1/xmarte:main
+  before_script:
+    - pip install httpx starlette uvicorn pyftpdlib pyyaml martepy
+  script:
+    - pylint martecompiler
+
+test:
+   stage: test
+   image: sudilav1/xmarte:latest
+   tags:
+      - lower-privacy
+      - docker
+      - ubuntu
+      - meta
+   before_script:
+      - pip install httpx starlette uvicorn pyftpdlib pyyaml martepy
+      - mkdir /home/martecompilerrunner
+      - chmod -R 777 /home/martecompilerrunner
+   script:
+      - pytest --cov=martecompiler --cov-report=term --cov-report=html:cov_html --cov-fail-under=90
+   variables:
+      MARTEC_ROOTDIR: $CI_PROJECT_DIR

@@ -1,0 +1,44 @@
+
+name: Test & Linting
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    name: Run Tests
+    container:
+      image: sudilav1/xmarte:main
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Run pytest
+        run: |
+          pip install httpx starlette uvicorn pyftpdlib pyyaml martepy
+          pytest --cov=marte-compiler --cov-report=term --cov-report=html:cov_html --cov-fail-under=90 --junit-xml=test_report.xml
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4.4.3
+        with:
+          name: coverage-report
+          path: cov_html/
+          retention-days: 30
+
+  linting:
+    runs-on: ubuntu-latest
+    name: Code Linting
+    container:
+      image: sudilav1/xmarte:main
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Run pylint
+        run: |
+          pip install httpx starlette uvicorn pyftpdlib pyyaml martepy
+          pylint marte-compiler

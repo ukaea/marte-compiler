@@ -1,0 +1,46 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "martecompiler"
+version = "1.0.0"
+description = "Server application for compiling MARTe2 applications remotely in a docker"
+authors = [{name="UK Atomic Energy Authority"}]
+readme = "README.md"
+requires-python = ">=3.6"
+license = {text = "EUPL 1.1"}  # Replace with an actual license if applicable
+keywords = ["xmarte", "docker", "runner", "remote execution"]
+dependencies = [
+    "pyftpdlib",
+    "uvicorn",
+    "jinja2",
+    "starlette",
+    "httpx",
+    "PyYAML"
+]
+
+[project.urls]
+homepage = "https://git.ccfe.ac.uk/marte21/public/marte-compiler"
+
+[tool.setuptools.packages.find]
+include = ["martecompiler"]
+
+[tool.coverage.run]
+omit = ["test/*", ".github", "docs/*", "cov_html", "build", ".pytest_cache/*"]
+
+[tool.coverage.report]
+omit = ["test/*", ".github", "docs/*", "cov_html", "build", ".pytest_cache/*", "martecompiler/__main__.py"]
+show_missing = true
+precision = 2
+
+[tool.setuptools.package-data]
+martecompiler = ["*.yml", "settings.yml"]
+
+[tool.project-team]
+lead = "Edward Jones"
+members = [
+    "Hudson Baker",
+    "Adam Stephen",
+    "Charlie Boswell"
+]

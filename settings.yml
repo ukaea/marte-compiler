@@ -1,0 +1,9 @@
+temp_directory: /home/martecompilerrunner
+http_port: 8012
+ftp_port: 8235
+username: admin
+password: admin
+# cleanup routine settings
+period: 1 day1s   # How often to run the cleanup cycle
+keep_for: 28d   # The age (in seconds) at which files get deleted
+trim_to: 1gb2megabytes 14 k  # The maximum size of the directory before the oldest files are deleted
