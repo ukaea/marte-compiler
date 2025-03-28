@@ -42,4 +42,3 @@ x.start()
 
 # Run our Starlette HTTP App
 uvicorn.run(app, host='0.0.0.0', port=settings['http_port'],h11_max_incomplete_event_size=16777216)
-
