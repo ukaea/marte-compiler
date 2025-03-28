@@ -22,7 +22,7 @@ jobs:
         run: |
           cp settings.yml /opt/martecompiler/settings.yml
           cp -r martecompiler/templates /opt/martecompiler/martecompiler/templates
-          pytest --cov=marte-compiler --disable-warnings --cov-report=term --cov-report=html:cov_html --cov-fail-under=90 --junit-xml=test_report.xml
+          pytest --cov=martecompiler --disable-warnings --cov-report=term --cov-report=html:cov_html --cov-fail-under=90 --junit-xml=test_report.xml
       - name: Upload Coverage Report
         uses: actions/upload-artifact@v4.4.3
         with:
