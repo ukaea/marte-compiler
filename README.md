@@ -32,7 +32,7 @@ When you require support please open an issue, if you would like to make adjustm
 
 For support on using this application you can refer to the documentation found here:
 
-[User Documentation](http://marte21.gitpages.ccfe.ac.uk/public/marte-compiler)
+[User Documentation](https://ukaea.github.io/marte-compiler/)
 
 **Note: It is expected that this repository is used by other developers automating the process through their own application development, using a REST API.**
 
