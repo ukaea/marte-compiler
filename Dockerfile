@@ -14,8 +14,3 @@ RUN chmod -R 777 /home/xmarterunner
 
 RUN mkdir -p /opt/martecompiler/martecompiler
 
-# Set the new user as the default
-USER martecompilerrunner
-
-# Set the working directory to the new user's home
-WORKDIR /home/martecompilerrunner
